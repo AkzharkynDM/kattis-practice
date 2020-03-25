@@ -1,0 +1,68 @@
+import java.util.Scanner;
+
+public class SpamFilter {
+
+    static String line;
+    static int index = -1;
+    static double max = -1.0;
+    static int length = -1;
+    static int cache = -1;
+
+
+    public static void solveTask() {
+        Scanner sc = new Scanner(System.in);
+        int k = sc.nextInt();
+        sc.nextLine();
+        line = sc.nextLine();
+        line = line + "0";
+        int limit = Math.min(k*2, line.length()-1);
+        for (int kk = k; kk<=limit; kk++){
+            solve(kk, (double) getOnes(kk));
+        }
+        System.out.println(Math.max(index+1,1) + " "+Math.max(length,1));
+
+    }
+
+    public static void solve(int k, double ones){
+        for (int i = 0; i<line.length()-k; i++){
+            double interim = ones/k;
+            if (max == 1.0){
+                return ;
+            }
+            if (interim > max){
+                max = interim;
+                index = i;
+                length = k;
+            }
+            //double head = Double.parseDouble(String.valueOf(line.charAt(i));
+            double head = ((line.charAt(i)=='1'))? 1.0 :0.0;
+            //double tail = Double.parseDouble(String.valueOf(line.charAt(i+k));
+            double tail = ((line.charAt(i+k)=='1'))? 1.0 :0.0;
+            ones = ones - head + tail;
+        }
+        double interim = ones/k;
+        if (interim > max){
+            max = interim;
+            index = line.length()-k;
+            length = k;
+        }
+    }
+
+    private static int getOnes(int k){
+        int ans = 0;
+        if (cache !=-1) {
+            int tail = ((line.charAt(k-1)=='1'))? 1 :0;
+            ans = cache + tail;
+
+        } else {
+            for (int i = 0; i < k; i++) {
+                if (line.charAt(i) == '1') {
+                    ans++;
+                }
+            }
+        }
+        cache = ans;
+        return ans;
+    }
+
+}

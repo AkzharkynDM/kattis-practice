@@ -6,7 +6,10 @@ public class Main {
         //WordCloud.solveWordCloud();
         //Alphabeth.solveAlphabeth();
         //Hangman.solve();
-        KnightJump.solve();
+        //KnightJump.solve();
+        //SpamFilter.solveTask();
+        RoyalBlood.solveMediumProblem();
+
         System.out.println("Solutions for the Kattis problems");
     }
 }
